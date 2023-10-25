@@ -15,7 +15,7 @@
 
 //#include "./geometry.h"
 
-#include <teaser/geometry.h>
+#include <quatro/teaser/geometry.h>
 
 namespace teaser {
 

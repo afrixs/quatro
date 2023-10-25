@@ -10,7 +10,7 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 #include <flann/flann.hpp>
-#include "teaser_utils/feature_matcher.h"
+#include "quatro/teaser_utils/feature_matcher.h"
 
 namespace teaser {
 

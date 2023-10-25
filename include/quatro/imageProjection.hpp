@@ -7,8 +7,24 @@
 #define USE_EIGHT_NEIGHBORS_PIXELS 1
 #define USE_FOUR_CROSS_NEIGHBORS_PIXELS 2
 
+namespace quatro {
+struct CloudInfo {
+    std::vector<int> startRingIndex;
+    std::vector<int> endRingIndex;
+
+    float startOrientation;
+    float endOrientation;
+    float orientationDiff;
+
+    std::vector<bool> segmentedCloudGroundFlag;
+    std::vector<unsigned int>  segmentedCloudColInd;
+    std::vector<float> segmentedCloudRange;
+};
+}
+
 class ImageProjection {
 private:
+
     pcl::PointCloud<PointTypeIP>::Ptr laserCloudIn;
     pcl::PointCloud<PointTypeIP>::Ptr fullCloud; // projected velodyne raw cloud, but saved in the form of 1-D matrix
     pcl::PointCloud<PointTypeIP>::Ptr fullInfoCloud; // same as fullCloud, but with intensity is replaced with range
@@ -30,8 +46,8 @@ private:
     float startOrientation;
     float endOrientation;
 
-    quatro::cloud_info segMsg; // info of segmented cloud
-    std_msgs::Header       cloudHeader;
+    quatro::CloudInfo segMsg; // info of segmented cloud
+    std_msgs::msg::Header       cloudHeader;
 
     std::vector<std::pair<int8_t, int8_t> > neighborIterator; // neighbor iterator for segmentaiton process
 
@@ -411,7 +427,7 @@ public:
             }
         }
 
-        // if (pubGroundCloud.getNumSubscribers() != 0){
+        // if (pubGroundCloud->get_subscription_count() != 0){
         for (size_t i = 0; i <= groundScanInd; ++i) {
             for (size_t j = 0; j < Horizon_SCAN; ++j) {
                 if (groundMat.at<int8_t>(i, j) == 1)
@@ -470,7 +486,7 @@ public:
 
         // extract segmented cloud for visualization
         // 해당토픽을 subscribe하지 않으면, 처리하지 않고 publish안함(아래코드)
-        // if (pubSegmentedCloudPure.getNumSubscribers() != 0){
+        // if (pubSegmentedCloudPure->get_subscription_count() != 0){
         for (size_t i = 0; i < N_SCAN; ++i) {
             for (size_t j = 0; j < Horizon_SCAN; ++j) {
                 if (labelMat.at<int>(i, j) > 0 && labelMat.at<int>(i, j) != 999999) {        //

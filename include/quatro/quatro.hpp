@@ -8,7 +8,6 @@
 
 
 #include <unistd.h>
-#include <geometry_msgs/Pose.h>
 #include <iostream>
 
 #include <pcl/registration/correspondence_estimation.h>
@@ -34,7 +33,7 @@
 #include <Eigen/Geometry>
 
 #include <flann/flann.hpp>
-#include <fpfh_manager.hpp>
+#include "fpfh_manager.hpp"
 
 #include "teaser/utils.h"
 
@@ -48,7 +47,7 @@ using namespace pcl;
 
 template<typename T>
 void voxelize(
-        const boost::shared_ptr<pcl::PointCloud<T> > srcPtr, boost::shared_ptr<pcl::PointCloud<T> > dstPtr,
+        const std::shared_ptr<pcl::PointCloud<T> > srcPtr, std::shared_ptr<pcl::PointCloud<T> > dstPtr,
         double voxelSize) {
     static pcl::VoxelGrid<T> voxel_filter;
     voxel_filter.setInputCloud(srcPtr);
@@ -59,7 +58,7 @@ void voxelize(
 
 template<typename T>
 void voxelize(
-        pcl::PointCloud<T> &src, boost::shared_ptr<pcl::PointCloud<T> > dstPtr,
+        pcl::PointCloud<T> &src, std::shared_ptr<pcl::PointCloud<T> > dstPtr,
         double voxelSize) {
     static pcl::VoxelGrid<T> voxel_filter;
     voxel_filter.setInputCloud(src);
@@ -937,7 +936,7 @@ public:
 
     void setInliers(
             const Eigen::Matrix<double, 3, Eigen::Dynamic> &raw, pcl::PointCloud<PointType> &inliers,
-            const vector<int> &idx_inliers) {
+            const std::vector<int> &idx_inliers) {
         inliers.clear();
         inliers.reserve(idx_inliers.size());
 
@@ -959,7 +958,7 @@ public:
         setInliers(tgt_matched, target_inliers, final_inliers_);
     }
 
-    vector<int> getFinalInliersIndices() {
+    std::vector<int> getFinalInliersIndices() {
         return final_inliers_;
     }
 

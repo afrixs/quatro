@@ -7,7 +7,7 @@
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/point_types_conversion.h>
 #include <pcl_conversions/pcl_conversions.h>
-#include <teaser/geometry.h>
+#include "teaser/geometry.h"
 
 template<typename T>
 void pcl2teaser(const pcl::PointCloud<T> &pcl_raw, teaser::PointCloud &cloud) {
@@ -18,8 +18,8 @@ void pcl2teaser(const pcl::PointCloud<T> &pcl_raw, teaser::PointCloud &cloud) {
 }
 
 template<typename T>
-sensor_msgs::PointCloud2 cloud2msg(pcl::PointCloud<T> cloud, std::string frame_id = "map") {
-    sensor_msgs::PointCloud2 cloud_ROS;
+sensor_msgs::msg::PointCloud2 cloud2msg(pcl::PointCloud<T> cloud, std::string frame_id = "map") {
+    sensor_msgs::msg::PointCloud2 cloud_ROS;
     pcl::toROSMsg(cloud, cloud_ROS);
     cloud_ROS.header.frame_id = frame_id;
     return cloud_ROS;

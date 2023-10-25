@@ -14,7 +14,7 @@
 
 #include <Eigen/Core>
 
-#include "teaser/macros.h"
+#include "quatro/teaser/macros.h"
 
 namespace teaser {
 

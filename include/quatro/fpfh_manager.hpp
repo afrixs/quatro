@@ -7,11 +7,7 @@
 
 
 #include <unistd.h>
-#include <geometry_msgs/Pose.h>
 #include <iostream>
-#include <ros/ros.h>
-#include <visualization_msgs/Marker.h>
-#include <visualization_msgs/MarkerArray.h>
 #include "conversion.hpp"
 #include "teaser_utils/fpfh.h"
 #include "teaser_utils/feature_matcher.h"

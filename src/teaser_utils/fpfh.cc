@@ -6,9 +6,9 @@
  * See LICENSE for the license information
  */
 
-#include "teaser_utils/fpfh.h"
+#include "quatro/teaser_utils/fpfh.h"
 #include <pcl/features/normal_3d.h>
-#include "teaser/utils.h"
+#include "quatro/teaser/utils.h"
 
 
 teaser::FPFHCloudPtr teaser::FPFHEstimation::computeFPFHFeatures(
